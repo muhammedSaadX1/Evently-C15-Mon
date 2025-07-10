@@ -1,5 +1,6 @@
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/core/routes_manager.dart';
 import 'package:evently_c15_mon/core/widgets/custom_elevated_button.dart';
 import 'package:evently_c15_mon/core/widgets/custom_text_button.dart';
 import 'package:evently_c15_mon/core/widgets/custom_text_form_field.dart';
@@ -54,7 +55,9 @@ class RegisterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                   Text("Already Have Account?", style: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.black),)
-               ,CustomTextButton(title: "Login")
+               ,CustomTextButton(title: "Login", onPressed: () {
+                 Navigator.pushReplacementNamed(context, RoutesManger.login);
+                    },)
                 ],)
                 
                 ],

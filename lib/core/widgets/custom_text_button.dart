@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({super.key, required this.title});
+  const CustomTextButton({super.key, required this.title, required this.onPressed});
 
   final String title;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: TextButton.styleFrom(foregroundColor: ColorsManager.blue),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         title,
-        style: TextStyle(color: ColorsManager.blue, fontSize: 16.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline, fontStyle: FontStyle.italic),
+
       ),
     );
   }

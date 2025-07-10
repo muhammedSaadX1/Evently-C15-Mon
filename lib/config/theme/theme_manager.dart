@@ -46,7 +46,9 @@ abstract class ThemeManager{
   ),
   ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(foregroundColor: ColorsManager.blue),
+      style: TextButton.styleFrom(
+          textStyle: TextStyle(color: ColorsManager.blue, fontSize: 16.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline, fontStyle: FontStyle.italic),
+          foregroundColor: ColorsManager.blue),
 
     )
 
