@@ -13,7 +13,7 @@ class LayoutScreen extends StatefulWidget {
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {
-  List<Widget> _tabs = [Home(), Maps(), Favourite(), Profile()];
+  final List<Widget> _tabs = const [Home(), Maps(), Favourite(), Profile()];
   int _selectedIndex = 0;
 
   @override
