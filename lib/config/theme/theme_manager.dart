@@ -74,6 +74,11 @@ abstract class ThemeManager{
           textStyle: TextStyle(color: ColorsManager.blue, fontSize: 16.sp,fontWeight: FontWeight.bold,decoration: TextDecoration.underline, fontStyle: FontStyle.italic),
           foregroundColor: ColorsManager.blue),
 
+    ),
+    textTheme: TextTheme(
+      labelMedium: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.bold, color: ColorsManager.black1C),
+      labelSmall: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.bold, color: ColorsManager.blue),
+
     )
 
   );
