@@ -31,6 +31,12 @@ abstract class ThemeManager{
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      hintStyle: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.blue,
+      ) ,
+
         labelStyle: GoogleFonts.inter(
           fontSize: 16.sp,
           fontWeight: FontWeight.w500,
