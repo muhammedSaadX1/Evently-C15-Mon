@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.hint,
+    this.maxLines = 1,
   });
 
   final String?label;
@@ -20,20 +21,23 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Color prefixIconColor;
+  final int maxLines ;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       style: GoogleFonts.inter(color: ColorsManager.black, fontSize: 18.sp, fontWeight: FontWeight.w400),
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hint,
 
         labelText: label,
+        prefixIconColor: prefixIconColor,
 
         prefixIcon:
             prefixIcon != null
-                ? Icon(prefixIcon, color:prefixIconColor)
+                ? Icon(prefixIcon,)
                 : null,
         suffixIcon:
             suffixIcon != null

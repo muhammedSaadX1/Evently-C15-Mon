@@ -34,7 +34,7 @@ abstract class ThemeManager{
       hintStyle: GoogleFonts.inter(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: ColorsManager.blue,
+        color: ColorsManager.grey,
       ) ,
 
         labelStyle: GoogleFonts.inter(

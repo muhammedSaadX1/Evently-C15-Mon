@@ -24,7 +24,7 @@ class CategoryItem extends StatelessWidget {
       padding: REdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: ColorsManager.whiteBlue, width: 1.w),
+          border: Border.all(color: selectedBackgroundColor, width: 1.w),
           color: isSelected ? selectedBackgroundColor : unSelectedBackgroundColor
       ),
       child: Row(

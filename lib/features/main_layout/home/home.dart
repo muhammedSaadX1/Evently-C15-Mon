@@ -1,5 +1,6 @@
 import 'package:evently_c15_mon/core/colors_manager.dart';
-import 'package:evently_c15_mon/features/main_layout/home/category_item.dart';
+import 'package:evently_c15_mon/core/widgets/category_item.dart';
+import 'package:evently_c15_mon/core/widgets/custom_tab_bar.dart';
 import 'package:evently_c15_mon/features/main_layout/home/event_item.dart';
 import 'package:evently_c15_mon/models/category_model.dart';
 import 'package:flutter/material.dart';
@@ -14,19 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<CategoryModel> categories = [
-    CategoryModel(name: "All", icon: Icons.all_inclusive),
-    CategoryModel(name: "Sports", icon: Icons.sports_football_rounded),
-    CategoryModel(name: "Birthday", icon: Icons.cake_rounded),
-    CategoryModel(name: "Meeting", icon: Icons.laptop),
-    CategoryModel(name: "Gaming", icon: Icons.gamepad_rounded),
-    CategoryModel(name: "Eating", icon: Icons.local_pizza_rounded),
-    CategoryModel(name: "Holiday", icon: Icons.holiday_village_rounded),
-    CategoryModel(name: "Exhibition", icon: Icons.water_drop_outlined),
-    CategoryModel(name: "WorkShop", icon: Icons.workspaces_rounded),
-    CategoryModel(name: "BookClub", icon: Icons.book_online),
-  ];
-  int selectedIndexTab = 0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,40 +92,19 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 8),
-                  DefaultTabController(
-                    length: categories.length,
-                    child: TabBar(
-                      tabAlignment: TabAlignment.start,
-                      indicatorColor: Colors.transparent,
-                      onTap: (index) {
-                        setState(() {
-                          selectedIndexTab = index;
-                        });
-                      },
-                      isScrollable: true,
-                      tabs:
-                          categories.map((category) {
-                            print(categories.indexOf(category));
-                            return CategoryItem(
-                              category: category,
-                              selectedBackgroundColor: ColorsManager.whiteBlue,
-                              unSelectedBackgroundColor: Colors.transparent,
-                              selectedForegroundColor: ColorsManager.blue,
-                              unSelectedForegroundColor:
-                                  ColorsManager.whiteBlue,
-                              isSelected:
-                                  categories.indexOf(category) ==
-                                  selectedIndexTab,
-                            );
-                          }).toList(),
-                    ),
-                  ),
+                  CustomTabBar(categories: CategoryModel.categoriesWithAll,
+                      selectedBackgroundColor: ColorsManager.whiteBlue,
+                      unSelectedBackgroundColor: Colors.transparent,
+                      selectedForegroundColor: ColorsManager.blue,
+                      unSelectedForegroundColor: ColorsManager.whiteBlue
+                       ,),
                 ],
               ),
             ),
           ),
         ),
-  Expanded(child: ListView.builder(itemBuilder: (context, index) => EventItem(),itemCount: 20,))
+        Expanded(child: ListView.builder(
+          itemBuilder: (context, index) => EventItem(), itemCount: 20,))
       ],
     );
   }

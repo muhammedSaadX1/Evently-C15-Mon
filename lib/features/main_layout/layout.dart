@@ -1,4 +1,5 @@
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/core/routes_manager.dart';
 import 'package:evently_c15_mon/features/main_layout/fav/fav.dart';
 import 'package:evently_c15_mon/features/main_layout/home/home.dart';
 import 'package:evently_c15_mon/features/main_layout/maps/map.dart';
@@ -21,7 +22,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RoutesManger.createEvent);
+        },
         child: Icon(Icons.add),
       ),
       body: _tabs[_selectedIndex],
