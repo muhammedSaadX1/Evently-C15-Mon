@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
         Container(
           padding: REdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
-            color: ColorsManager.blue,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
           ),
           child: SafeArea(
@@ -40,52 +40,38 @@ class _HomeState extends State<Home> {
                         children: [
                           Text(
                             "Welcome Back ✨",
-                            style: GoogleFonts.inter(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: ColorsManager.white,
-                            ),
+                            style:Theme.of(context).textTheme.titleSmall
                           ),
                           Text(
                             "Muhammed Saad",
-                            style: GoogleFonts.inter(
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.w500,
-                              color: ColorsManager.white,
-                            ),
+                            style:Theme.of(context).textTheme.titleMedium
                           ),
                           SizedBox(height: 8.h),
                           Row(
                             children: [
                               Icon(
                                 Icons.location_on,
-                                color: ColorsManager.white,
+                                color: ColorsManager.white ,
+
                               ),
                               SizedBox(width: 4.w),
                               Text(
                                 "Cairo, Egypt",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorsManager.white,
-                                ),
+                                style: Theme.of(context).textTheme.titleSmall
                               ),
                             ],
                           ),
                         ],
                       ),
                       Spacer(),
-                      Icon(Icons.light_mode, color: ColorsManager.white),
+                      Icon(Icons.light_mode,color: ColorsManager.white,),
                       Card(
+                        color: Theme.of(context).cardColor,
                         child: Padding(
                           padding: REdgeInsets.all(8.0),
                           child: Text(
                             "En",
-                            style: GoogleFonts.inter(
-                              fontSize: 14.sp,
-                              color: ColorsManager.blue,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.displaySmall
                           ),
                         ),
                       ),

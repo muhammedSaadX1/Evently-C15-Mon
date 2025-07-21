@@ -46,7 +46,8 @@ class CreateEvent extends StatelessWidget {
                 children: [
                   Icon(Icons.date_range_rounded),
                   SizedBox(width: 8.w,),
-                  Text("Event Date"),
+                  Text("Event Date", style: Theme.of(context).textTheme
+                    .bodySmall,),
                   Spacer(),
                   CustomTextButton(title: "Choose Date", onPressed: (){
                     showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 356)));
@@ -59,7 +60,7 @@ class CreateEvent extends StatelessWidget {
                 children: [
                   Icon(Icons.access_time_outlined),
                   SizedBox(width: 8.w,),
-                  Text("Event Time"),
+                  Text("Event Time", style: Theme.of(context).textTheme.bodySmall,),
                   Spacer(),
                   CustomTextButton(title: "Choose Time", onPressed: (){
                     showTimePicker(context: context, initialTime: TimeOfDay.now());

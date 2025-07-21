@@ -119,12 +119,14 @@ class _ProfileState extends State<Profile> {
                 ),
                 Spacer(),
                 DropdownButton<String>(
+                  style: Theme.of(context).dropdownMenuTheme.textStyle,
+                  dropdownColor: Theme.of(context).primaryColor,
                   underline: Container(),
                   items:
                       menuItems.map((item) {
                         return DropdownMenuItem<String>(
                           value: item,
-                          child: Text(item),
+                          child: Text(item,),
                         );
                       }).toList(),
                   onChanged: onChange,

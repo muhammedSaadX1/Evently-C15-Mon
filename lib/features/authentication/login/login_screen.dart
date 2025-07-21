@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't Have Account?", style: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.black),)
+                    Text("Don't Have Account?", style:Theme.of(context).textTheme.bodySmall,)
                     ,CustomTextButton(title: "Create Account",onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesManger.register);
                     }, )

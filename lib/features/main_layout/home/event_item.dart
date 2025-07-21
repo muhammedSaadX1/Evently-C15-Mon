@@ -41,14 +41,14 @@ class EventItem extends StatelessWidget {
 
           SizedBox(height: 120.h),
           Card(
-            color: ColorsManager.white,
+
             child: Padding(
               padding:  REdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Meeting for Updating The Development Method ")),
+                  Expanded(child: Text("Meeting for Updating The Development Method ", style: Theme.of(context).textTheme.bodySmall,)),
 
-                  Icon(Icons.favorite)
+                  Icon(Icons.favorite, color: ColorsManager.blue,)
                 ],
               ),
             ),

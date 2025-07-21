@@ -26,14 +26,14 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.displayMedium,
       maxLines: maxLines,
-      style: GoogleFonts.inter(color: ColorsManager.black, fontSize: 18.sp, fontWeight: FontWeight.w400),
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hint,
 
         labelText: label,
-        prefixIconColor: prefixIconColor,
+       // prefixIconColor: prefixIconColor,
 
         prefixIcon:
             prefixIcon != null
@@ -41,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
                 : null,
         suffixIcon:
             suffixIcon != null
-                ? Icon(suffixIcon, color: ColorsManager.grey)
+                ? Icon(suffixIcon, )
                 : null,
       ),
     );

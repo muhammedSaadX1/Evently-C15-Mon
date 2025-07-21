@@ -54,7 +54,7 @@ class RegisterScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Text("Already Have Account?", style: GoogleFonts.inter(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.black),)
+                  Text("Already Have Account?", style: Theme.of(context).textTheme.bodySmall,)
                ,CustomTextButton(title: "Login", onPressed: () {
                  Navigator.pushReplacementNamed(context, RoutesManger.login);
                     },)
