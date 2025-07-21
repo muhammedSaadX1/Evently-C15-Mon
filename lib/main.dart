@@ -1,7 +1,11 @@
 import 'package:evently_c15_mon/config/theme/theme_manager.dart';
 import 'package:evently_c15_mon/core/routes_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
 
 void main() {
   runApp(const EventlyApp());
@@ -20,11 +24,15 @@ class EventlyApp extends StatelessWidget {
       builder: (context, child) =>  MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManger.getRoute ,
-        initialRoute: RoutesManger.mainLayout,
+        initialRoute: RoutesManger.register,
         theme: ThemeManager.light,
         darkTheme: ThemeManager.dark,
         themeMode: ThemeMode.light,
-        locale: Locale("en"),
+        supportedLocales: [
+          Locale("en"),
+          Locale("ar")
+        ],
+
 
       ),
     );
