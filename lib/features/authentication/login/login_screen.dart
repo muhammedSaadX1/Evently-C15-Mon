@@ -7,12 +7,14 @@ import 'package:evently_c15_mon/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: Padding(
         padding:  REdgeInsets.symmetric(horizontal: 16.0),
@@ -24,21 +26,22 @@ class LoginScreen extends StatelessWidget {
               children: [
 
                 SizedBox(height: 24.h,),
-                CustomTextFormField(label: "E-mail", prefixIcon: Icons.email,),
+                CustomTextFormField(label: appLocalizations.email
+                  , prefixIcon: Icons.email,),
                 SizedBox(height: 16.h,),
-                CustomTextFormField(label: "Password",
+                CustomTextFormField(label: appLocalizations.password,
                   prefixIcon: Icons.lock,
                   suffixIcon: Icons.visibility_off,),
                 Container(
                     alignment: Alignment.centerRight,
-                    child: CustomTextButton(title: "Forget Password", onPressed: (){},)),
+                    child: CustomTextButton(title: appLocalizations.forget_password, onPressed: (){},)),
                 SizedBox(height: 8.h,),
-                CustomElevatedButton(title: "Login"),
+                CustomElevatedButton(title:appLocalizations.login),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't Have Account?", style:Theme.of(context).textTheme.bodySmall,)
-                    ,CustomTextButton(title: "Create Account",onPressed: () {
+                    Text(appLocalizations.dont_have_account, style:Theme.of(context).textTheme.bodySmall,)
+                    ,CustomTextButton(title: appLocalizations.create_account,onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesManger.register);
                     }, )
                   ],)

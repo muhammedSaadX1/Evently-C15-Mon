@@ -2,9 +2,14 @@ import 'dart:developer';
 
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/providers/config_provider.dart';
+import 'package:evently_c15_mon/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
 
 typedef OnChange = void Function(String?);
 
@@ -18,9 +23,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String selectedTheme = "Light";
   String selectedLang = "English";
+  late AppLocalizations appLocalizations;
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
+    var langProvider = Provider.of<LanguageProvider>(context);
+    appLocalizations = AppLocalizations.of(context)!;
     return SafeArea(
       child: Column(
         children: [
@@ -64,24 +73,22 @@ class _ProfileState extends State<Profile> {
             child: Column(
               children: [
                 buildDropDown(
-                  selectedItemView: selectedLang,
-                  labelText: "Language",
+                  selectedItemView: langProvider.isEnglish ? "English": "عربي",
+                  labelText: appLocalizations.language,
                   menuItems: ["English", "عربي"],
                   onChange: (newLang) {
-                   selectedLang = newLang!;
-                   setState(() {
 
-                   });
+                   langProvider.changeCurrentLang(newLang == "English" ? "en":"ar");
                   },
                 ),
                 SizedBox(height: 16.h),
                 buildDropDown(
-                  selectedItemView: selectedTheme,
-                  labelText: "Theme",
-                  menuItems: ["Light", "Dark"],
+                  selectedItemView: themeProvider.isDark ? appLocalizations.dark : appLocalizations.light,
+                  labelText: appLocalizations.theme,
+                  menuItems: [appLocalizations.light, appLocalizations.dark],
                   onChange: (newTheme) {
-                   selectedTheme = newTheme!;
-                    setState(() {});
+                    themeProvider.changeAppTheme(
+                        newTheme == appLocalizations.light ? ThemeMode.light : ThemeMode.dark);
                   },
                 ),
               ],
@@ -101,7 +108,10 @@ class _ProfileState extends State<Profile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(labelText, style: Theme.of(context).textTheme.labelMedium),
+        Text(labelText, style: Theme
+            .of(context)
+            .textTheme
+            .labelMedium),
         SizedBox(height: 8.h),
         SizedBox(
           height: 60.h,
@@ -115,20 +125,28 @@ class _ProfileState extends State<Profile> {
               children: [
                 Text(
                   selectedItemView,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelSmall,
                 ),
                 Spacer(),
                 DropdownButton<String>(
-                  style: Theme.of(context).dropdownMenuTheme.textStyle,
-                  dropdownColor: Theme.of(context).primaryColor,
+                  style: Theme
+                      .of(context)
+                      .dropdownMenuTheme
+                      .textStyle,
+                  dropdownColor: Theme
+                      .of(context)
+                      .primaryColor,
                   underline: Container(),
                   items:
-                      menuItems.map((item) {
-                        return DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(item,),
-                        );
-                      }).toList(),
+                  menuItems.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(item,),
+                    );
+                  }).toList(),
                   onChanged: onChange,
                 ),
               ],

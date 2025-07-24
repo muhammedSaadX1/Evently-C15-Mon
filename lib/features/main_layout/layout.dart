@@ -5,6 +5,7 @@ import 'package:evently_c15_mon/features/main_layout/home/home.dart';
 import 'package:evently_c15_mon/features/main_layout/maps/map.dart';
 import 'package:evently_c15_mon/features/main_layout/profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -16,9 +17,11 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   final List<Widget> _tabs = const [Home(), Maps(), Favourite(), Profile()];
   int _selectedIndex = 0;
+    late AppLocalizations appLocalizations ;
 
   @override
   Widget build(BuildContext context) {
+   appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -44,7 +47,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             icon: Icon(
               _selectedIndex == 0 ? Icons.home_filled : Icons.home_outlined,
             ),
-            label: "Home",
+            label: appLocalizations.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -52,7 +55,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ? Icons.location_on
                   : Icons.location_on_outlined,
             ),
-            label: "Map",
+            label: appLocalizations.map,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -60,13 +63,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ? Icons.favorite
                   : Icons.favorite_border_outlined,
             ),
-            label: "Fav",
+            label:appLocalizations.favourite
           ),
           BottomNavigationBarItem(
             icon: Icon(
               _selectedIndex == 3 ? Icons.person : Icons.person_2_outlined,
             ),
-            label: "Profile",
+            label: appLocalizations.profile
           ),
         ],
       ),
