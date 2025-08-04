@@ -1,5 +1,6 @@
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/core/extensions/date_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,7 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime eventDate = DateTime.now().add(Duration(days: 35));
     return Container(
       
       margin: REdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -29,9 +31,9 @@ class EventItem extends StatelessWidget {
               padding: REdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
               child: Column(
                 children: [
-                  Text("21", style: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.bold, color: ColorsManager.blue
+                  Text(eventDate.day.toString(), style: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.bold, color: ColorsManager.blue
                   ),),
-                  Text("Nov", style: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: ColorsManager.blue
+                  Text(eventDate.viewMonthText, style: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: ColorsManager.blue
                   ),),
 
                 ],

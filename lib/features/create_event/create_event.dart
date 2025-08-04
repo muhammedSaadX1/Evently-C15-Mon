@@ -1,5 +1,7 @@
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/core/extensions/date_extension.dart';
+import 'package:evently_c15_mon/core/extensions/time_extension.dart';
 import 'package:evently_c15_mon/core/widgets/custom_elevated_button.dart';
 import 'package:evently_c15_mon/core/widgets/custom_tab_bar.dart';
 import 'package:evently_c15_mon/core/widgets/custom_text_button.dart';
@@ -9,8 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CreateEvent extends StatelessWidget {
+class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
+
+  @override
+  State<CreateEvent> createState() => _CreateEventState();
+}
+
+class _CreateEventState extends State<CreateEvent> {
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -35,48 +45,85 @@ class CreateEvent extends StatelessWidget {
                 selectedForegroundColor: ColorsManager.white,
                 unSelectedForegroundColor: ColorsManager.blue,
               ),
-              SizedBox(height: 16.h,),
+              SizedBox(height: 16.h),
               Text(appLocalizations.event_title),
-              SizedBox(height: 8.h,),
-              CustomTextFormField(prefixIcon: Icons.edit, hint: appLocalizations.event_title,),
-              SizedBox(height: 16.h,),
+              SizedBox(height: 8.h),
+              CustomTextFormField(
+                prefixIcon: Icons.edit,
+                hint: appLocalizations.event_title,
+              ),
+              SizedBox(height: 16.h),
               Text(appLocalizations.description),
-              SizedBox(height: 8.h,),
-              CustomTextFormField( hint: appLocalizations.event_description,maxLines: 4,),
-              SizedBox(height: 16.h,),
+              SizedBox(height: 8.h),
+              CustomTextFormField(
+                hint: appLocalizations.event_description,
+                maxLines: 4,
+              ),
+              SizedBox(height: 16.h),
               Row(
                 children: [
                   Icon(Icons.date_range_rounded),
-                  SizedBox(width: 8.w,),
-                  Text(appLocalizations.event_date, style: Theme.of(context).textTheme
-                    .bodySmall,),
+                  SizedBox(width: 8.w),
+                  Text(
+                   selectedDate.toFormatDate,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                   Spacer(),
-                  CustomTextButton(title:appLocalizations.choose_date, onPressed: (){
-                    showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 356)));
-                  }
-                  )
+                  CustomTextButton(
+                    title: appLocalizations.choose_date,
+                    onPressed: () {
+                      chooseEventDate();
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 16.h,),
+              SizedBox(height: 16.h),
               Row(
                 children: [
                   Icon(Icons.access_time_outlined),
-                  SizedBox(width: 8.w,),
-                  Text(appLocalizations.event_time, style: Theme.of(context).textTheme.bodySmall,),
-                  Spacer(),
-                  CustomTextButton(title: appLocalizations.choose_time, onPressed: (){
-                    showTimePicker(context: context, initialTime: TimeOfDay.now());
-                  }
+                  SizedBox(width: 8.w),
+                  Text(
+                    selectedDate.formatTime,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-
+                  Spacer(),
+                  CustomTextButton(
+                    title: appLocalizations.choose_time,
+                    onPressed: () {
+                      chooseEventTime();
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 18,),
-              CustomElevatedButton(title: appLocalizations.add_event)
+              SizedBox(height: 18),
+              CustomElevatedButton(title: appLocalizations.add_event),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void chooseEventDate() async {
+    selectedDate =
+        await showDatePicker(
+          context: context,
+          firstDate: DateTime.now(),
+          lastDate: DateTime.now().add(Duration(days: 356)),
+        ) ??
+        selectedDate;
+    selectedDate = selectedDate.copyWith(hour: selectedTime.hour, minute: selectedTime.minute);
+    print(selectedDate);
+    setState(() {
+
+    });
+  }
+
+  void chooseEventTime() async{
+   selectedTime = await  showTimePicker(context: context, initialTime:TimeOfDay.now()) ?? selectedTime;
+ selectedDate =  selectedDate.copyWith(hour: selectedTime.hour, minute: selectedTime.minute);
+   setState(() {
+
+  });
   }
 }

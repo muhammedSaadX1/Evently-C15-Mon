@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
+import 'package:evently_c15_mon/core/prefs_manager/prefs_manager.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
 import 'package:flutter/material.dart';

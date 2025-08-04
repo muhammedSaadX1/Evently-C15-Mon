@@ -1,4 +1,6 @@
+
 import 'package:evently_c15_mon/config/theme/theme_manager.dart';
+import 'package:evently_c15_mon/core/prefs_manager/prefs_manager.dart';
 import 'package:evently_c15_mon/core/routes_manager.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
@@ -9,7 +11,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefsManager.init();
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider(),),
@@ -20,6 +24,7 @@ void main() {
 
 class EventlyApp extends StatelessWidget {
   const EventlyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
@@ -37,7 +42,7 @@ class EventlyApp extends StatelessWidget {
               initialRoute: RoutesManger.mainLayout,
               theme: ThemeManager.light,
               darkTheme: ThemeManager.dark,
-              themeMode:themeProvider.currentTheme,
+              themeMode: PrefsManager.getTheme() ?? ThemeMode.light,
               localizationsDelegates: [
               AppLocalizations.delegate, // Add this line
               GlobalMaterialLocalizations.delegate,
@@ -46,12 +51,15 @@ class EventlyApp extends StatelessWidget {
               ],
               supportedLocales: [
               Locale("en"),
-      Locale("ar")
+              Locale("ar")
       ],
-      locale: Locale(langProvider.currentLang),
+      locale: Locale(PrefsManager.getLanguage() ??"en"),
 
 
     ),);
   }
+
+
+
 }
 
