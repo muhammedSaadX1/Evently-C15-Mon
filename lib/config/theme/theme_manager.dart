@@ -36,6 +36,7 @@ abstract class ThemeManager{
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+
       prefixIconColor:ColorsManager.grey
         ,
       suffixIconColor: ColorsManager.grey,
@@ -64,7 +65,12 @@ abstract class ThemeManager{
           borderRadius: BorderRadius.circular(16.r),
 
           borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
-    )
+    ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+
+        borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
+      ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

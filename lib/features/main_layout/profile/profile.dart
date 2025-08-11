@@ -3,8 +3,13 @@ import 'dart:developer';
 import 'package:evently_c15_mon/core/assets_manager.dart';
 import 'package:evently_c15_mon/core/colors_manager.dart';
 import 'package:evently_c15_mon/core/prefs_manager/prefs_manager.dart';
+import 'package:evently_c15_mon/core/routes_manager.dart';
+import 'package:evently_c15_mon/firebase_service/firebase_service.dart';
+import 'package:evently_c15_mon/models/user_model.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,7 +54,7 @@ class _ProfileState extends State<Profile> {
                 Column(
                   children: [
                     Text(
-                      "Muhammed Saad",
+                      UserModel.currentUser?.name ?? "no user",
                       style: GoogleFonts.inter(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
@@ -57,7 +62,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Text(
-                      "mSaad@gmail.com",
+                     UserModel.currentUser?.email?? "no email found",
                       style: GoogleFonts.inter(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
@@ -92,6 +97,25 @@ class _ProfileState extends State<Profile> {
                         newTheme == appLocalizations.light ? ThemeMode.light : ThemeMode.dark);
                   },
                 ),
+                SizedBox(height: 70.h,),
+
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorsManager.red
+                    ),
+                    onPressed: ()async {
+                     await  FirebaseService.logOut();
+                      Navigator.pushReplacementNamed(context, RoutesManger.login);
+                }, child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text("LoOut", style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),)
+                    ,Spacer(),
+                      Icon(Icons.logout_outlined)
+                    ],
+                  ),
+                ))
               ],
             ),
           ),

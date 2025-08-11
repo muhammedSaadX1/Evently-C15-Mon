@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  const CustomElevatedButton({super.key, required this.title});
+  const CustomElevatedButton({super.key, required this.title, required this.onPress});
   final String title;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
 
-        onPressed: () {} , child: Text(title));
+        onPressed:onPress , child: Text(title));
   }
 }

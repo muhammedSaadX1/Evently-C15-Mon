@@ -3,6 +3,7 @@ import 'package:evently_c15_mon/core/widgets/category_item.dart';
 import 'package:evently_c15_mon/core/widgets/custom_tab_bar.dart';
 import 'package:evently_c15_mon/features/main_layout/home/event_item.dart';
 import 'package:evently_c15_mon/models/category_model.dart';
+import 'package:evently_c15_mon/models/user_model.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
                             style:Theme.of(context).textTheme.titleSmall
                           ),
                           Text(
-                            "Muhammed Saad",
+                            UserModel.currentUser?.name ?? "No user",
                             style:Theme.of(context).textTheme.titleMedium
                           ),
                           SizedBox(height: 8.h),
