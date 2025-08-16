@@ -15,7 +15,10 @@ class DialogUtils {
       context: context,
       builder:
           (context) => PopScope(
-            canPop: dismissible,
+            canPop: false,
+            onPopInvokedWithResult:(pop, x){
+              print("Whyyyyyyyyyyyyyyy");
+            } ,
             child: CupertinoAlertDialog(
               content:
                   message == null
@@ -56,7 +59,9 @@ class DialogUtils {
           actions.add(MaterialButton(
 
               onPressed: () {
+
             posAction?.call();
+            Navigator.pop(context);
 
           }, child: Text(posActionTitle, style: TextStyle(fontSize: 14, color: ColorsManager.black),)));
         }

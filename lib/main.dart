@@ -3,6 +3,8 @@ import 'package:evently_c15_mon/config/theme/theme_manager.dart';
 import 'package:evently_c15_mon/core/prefs_manager/prefs_manager.dart';
 import 'package:evently_c15_mon/core/routes_manager.dart';
 import 'package:evently_c15_mon/firebase_options.dart';
+import 'package:evently_c15_mon/firebase_service/firebase_service.dart';
+import 'package:evently_c15_mon/models/user_model.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +12,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
+import 'l10n/app_localizations.dart';
 
 
 void main() async{
@@ -20,6 +23,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+UserModel.currentUser = await FirebaseService.getUserFromFireStore(FirebaseAuth.instance.currentUser?.uid?? "11") ;
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider(),),
@@ -45,7 +49,7 @@ class EventlyApp extends StatelessWidget {
           MaterialApp(
               debugShowCheckedModeBanner: false,
               onGenerateRoute: RoutesManger.getRoute,
-              initialRoute: FirebaseAuth.instance.currentUser == null ? RoutesManger.login : RoutesManger.mainLayout,
+              initialRoute: FirebaseAuth.instance.currentUser!= null ?RoutesManger.mainLayout : RoutesManger.login,
               theme: ThemeManager.light,
               darkTheme: ThemeManager.dark,
               themeMode: PrefsManager.getTheme() ?? ThemeMode.light,

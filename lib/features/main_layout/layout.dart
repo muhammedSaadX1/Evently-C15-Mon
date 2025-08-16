@@ -4,8 +4,11 @@ import 'package:evently_c15_mon/features/main_layout/fav/fav.dart';
 import 'package:evently_c15_mon/features/main_layout/home/home.dart';
 import 'package:evently_c15_mon/features/main_layout/maps/map.dart';
 import 'package:evently_c15_mon/features/main_layout/profile/profile.dart';
+import 'package:evently_c15_mon/firebase_service/firebase_service.dart';
+import 'package:evently_c15_mon/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:evently_c15_mon/l10n/app_localizations.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -15,12 +18,17 @@ class LayoutScreen extends StatefulWidget {
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {
+
+
+
+
   final List<Widget> _tabs = const [Home(), Maps(), Favourite(), Profile()];
   int _selectedIndex = 0;
     late AppLocalizations appLocalizations ;
 
   @override
   Widget build(BuildContext context) {
+    print("iddddddddddddddd${FirebaseAuth.instance.currentUser!.uid}");
    appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

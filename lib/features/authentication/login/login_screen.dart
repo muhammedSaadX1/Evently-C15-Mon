@@ -7,11 +7,11 @@ import 'package:evently_c15_mon/core/widgets/custom_elevated_button.dart';
 import 'package:evently_c15_mon/core/widgets/custom_text_button.dart';
 import 'package:evently_c15_mon/core/widgets/custom_text_form_field.dart';
 import 'package:evently_c15_mon/firebase_service/firebase_service.dart';
+import 'package:evently_c15_mon/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

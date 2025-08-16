@@ -94,7 +94,7 @@ abstract class ThemeManager{
 
     ),
     //cardColor: ColorsManager.whiteBlue,
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: ColorsManager.whiteBlue,
         elevation: 8,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
@@ -202,7 +202,7 @@ displaySmall: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, co
 
       ),
       //cardColor: ColorsManager.ofWhite,
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: ColorsManager.darkBlue,
         elevation: 8,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),

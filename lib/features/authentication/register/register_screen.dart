@@ -14,7 +14,7 @@ import 'package:evently_c15_mon/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:evently_c15_mon/l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -80,9 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (input == null || input.trim().isEmpty) {
                           return "Plz, enter ur name";
                         }
-                        if (input.length < 5) {
-                          return "Sorry, name should be at least 5 chars";
-                        }
+
                         return null;
                       },
                       controller: _nameController,
@@ -178,6 +176,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       await FirebaseService.register(
         email: _emailController.text,
         password: _passwordController.text,
+        name: _nameController.text
       );
       DialogUtils.hideDialog(context);
       DialogUtils.showMessage(

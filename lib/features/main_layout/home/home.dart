@@ -2,14 +2,16 @@ import 'package:evently_c15_mon/core/colors_manager.dart';
 import 'package:evently_c15_mon/core/widgets/category_item.dart';
 import 'package:evently_c15_mon/core/widgets/custom_tab_bar.dart';
 import 'package:evently_c15_mon/features/main_layout/home/event_item.dart';
+import 'package:evently_c15_mon/firebase_service/firebase_service.dart';
 import 'package:evently_c15_mon/models/category_model.dart';
+import 'package:evently_c15_mon/models/event_model.dart';
 import 'package:evently_c15_mon/models/user_model.dart';
 import 'package:evently_c15_mon/providers/config_provider.dart';
 import 'package:evently_c15_mon/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:evently_c15_mon/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -20,13 +22,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  CategoryModel selectedCategory = CategoryModel.categoriesWithAll[0];
 
   @override
   Widget build(BuildContext context) {
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
-    var  themeProvider = Provider.of<ThemeProvider>(context);
-    var  langProvider = Provider.of<LanguageProvider>(context);
+    var themeProvider = Provider.of<ThemeProvider>(context);
+    var langProvider = Provider.of<LanguageProvider>(context);
     return Column(
       children: [
         Container(
@@ -48,24 +50,23 @@ class _HomeState extends State<Home> {
                         children: [
                           Text(
                             "${appLocalizations.welcome_back} ✨",
-                            style:Theme.of(context).textTheme.titleSmall
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                           Text(
                             UserModel.currentUser?.name ?? "No user",
-                            style:Theme.of(context).textTheme.titleMedium
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(height: 8.h),
                           Row(
                             children: [
                               Icon(
                                 Icons.location_on,
-                                color: ColorsManager.white ,
-
+                                color: ColorsManager.white,
                               ),
                               SizedBox(width: 4.w),
                               Text(
                                 "Cairo, Egypt",
-                                style: Theme.of(context).textTheme.titleSmall
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],
                           ),
@@ -73,21 +74,33 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       InkWell(
-                          onTap: () {
-                           themeProvider.changeAppTheme(themeProvider.isDark ? ThemeMode.light : ThemeMode.dark);
-                          },
-                          child: Icon( themeProvider.isDark ? Icons.dark_mode : Icons.light_mode,color: ColorsManager.white,)),
+                        onTap: () {
+                          themeProvider.changeAppTheme(
+                            themeProvider.isDark
+                                ? ThemeMode.light
+                                : ThemeMode.dark,
+                          );
+                        },
+                        child: Icon(
+                          themeProvider.isDark
+                              ? Icons.dark_mode
+                              : Icons.light_mode,
+                          color: ColorsManager.white,
+                        ),
+                      ),
                       InkWell(
                         onTap: () {
-                          langProvider.changeCurrentLang(langProvider.isEnglish ? "ar" : "en");
+                          langProvider.changeCurrentLang(
+                            langProvider.isEnglish ? "ar" : "en",
+                          );
                         },
                         child: Card(
                           color: Theme.of(context).cardColor,
                           child: Padding(
                             padding: REdgeInsets.all(8.0),
                             child: Text(
-                              langProvider.isEnglish ? "En": "Ar",
-                              style: Theme.of(context).textTheme.displaySmall
+                              langProvider.isEnglish ? "En" : "Ar",
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
                           ),
                         ),
@@ -95,19 +108,53 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 8),
-                  CustomTabBar(categories: CategoryModel.getCategoriesWithAll(context),
-                      selectedBackgroundColor: ColorsManager.whiteBlue,
-                      unSelectedBackgroundColor: Colors.transparent,
-                      selectedForegroundColor: ColorsManager.blue,
-                      unSelectedForegroundColor: ColorsManager.whiteBlue
-                       ,),
+                  CustomTabBar(
+                    onCategoryItemClicked: (category) {
+                      selectedCategory = category;
+                      setState(() {});
+                    },
+                    categories: CategoryModel.getCategoriesWithAll(context),
+                    selectedBackgroundColor: ColorsManager.whiteBlue,
+                    unSelectedBackgroundColor: Colors.transparent,
+                    selectedForegroundColor: ColorsManager.blue,
+                    unSelectedForegroundColor: ColorsManager.whiteBlue,
+                  ),
                 ],
               ),
             ),
           ),
         ),
-        Expanded(child: ListView.builder(
-          itemBuilder: (context, index) => EventItem(), itemCount: 20,))
+        StreamBuilder(
+          stream: FirebaseService.getEventsFromFireStoreWithRealTime(
+            selectedCategory,
+          ),
+
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+
+            List<EventModel> events = snapshot.data ?? [];
+
+            return Expanded(
+              child:
+
+              ListView.builder(
+                itemBuilder:
+                    (context, index) => EventItem(
+                      event: events[index],
+                      isFav: UserModel.currentUser!.favEventsIds.contains(
+                        events[index].id,
+                      ),
+                    ),
+                itemCount: events.length,
+              ),
+            );
+          },
+        ),
       ],
     );
   }

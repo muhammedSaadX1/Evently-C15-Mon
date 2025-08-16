@@ -1,3 +1,4 @@
+
 import 'package:evently_c15_mon/core/colors_manager.dart';
 import 'package:evently_c15_mon/core/widgets/category_item.dart';
 import 'package:evently_c15_mon/models/category_model.dart';
@@ -12,6 +13,7 @@ class CustomTabBar extends StatefulWidget {
     required this.unSelectedBackgroundColor,
     required this.selectedForegroundColor,
     required this.unSelectedForegroundColor,
+     this.onCategoryItemClicked
 
   });
 
@@ -20,6 +22,7 @@ class CustomTabBar extends StatefulWidget {
   final Color unSelectedBackgroundColor;
   final Color selectedForegroundColor;
   final Color unSelectedForegroundColor;
+  final void Function(CategoryModel model)? onCategoryItemClicked;
 
 
   @override
@@ -39,6 +42,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
         onTap: (index) {
           setState(() {
             selectedIndexTab = index;
+            widget.onCategoryItemClicked?.call(widget.categories[index]);
           });
         },
         isScrollable: true,
